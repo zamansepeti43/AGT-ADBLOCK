@@ -2,6 +2,10 @@ name: Import upstream Android source
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - README.md
 
 permissions:
   contents: write
@@ -16,12 +20,17 @@ jobs:
           fetch-depth: 0
 
       - name: Clone selected upstream
-        run: |
-          git clone --depth 1 https://github.com/pass-with-high-score/blockads-android.git /tmp/blockads-upstream
+        run: git clone --depth 1 https://github.com/pass-with-high-score/blockads-android.git /tmp/blockads-upstream
 
-      - name: Copy complete Android source into this repository
+      - name: Copy complete Android source into repository root
         run: |
-          rsync -a --delete             --exclude='.git/'             --exclude='.github/'             --exclude='README.md'             --exclude='LICENSE'             --exclude='app/build/'             /tmp/blockads-upstream/ ./
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='README.md' \
+            --exclude='LICENSE' \
+            --exclude='app/build/' \
+            /tmp/blockads-upstream/ ./
           cp /tmp/blockads-upstream/README.md UPSTREAM_README.md
           cp /tmp/blockads-upstream/LICENSE LICENSE
 
@@ -34,5 +43,5 @@ jobs:
             echo "No source changes to import."
             exit 0
           fi
-          git commit -m "Import BlockAds Android source as AGT AdBlock base"
+          git commit -m "Import complete BlockAds Android source"
           git push
