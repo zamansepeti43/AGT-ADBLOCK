@@ -15,3 +15,7 @@ Upstream: https://github.com/pass-with-high-score/blockads-android
 
 ## Build
 Android kaynak kodu upstream deposundan alınır. İlk doğrulama aşamasında orijinal uygulama değiştirilmeden derlenir.
+
+
+## Kaynak aktarımı
+Orijinal BlockAds kaynak ağacı AGT-ADBLOCK kök dizinine aktarılmıştır. İlk derleme doğrulaması GitHub Actions üzerinden yürütülür.
