@@ -20,7 +20,7 @@ class VpnNotificationManager(private val context: Context) {
         const val NOTIFICATION_ID = 1
         const val REVOKED_NOTIFICATION_ID = 2
         const val WG_CONFIG_ISSUE_NOTIFICATION_ID = 3
-        const val CHANNEL_ID = "blockads_vpn_channel"
+        const val CHANNEL_ID = "blockads_vpn_channel_quiet"
         const val ALERT_CHANNEL_ID = "blockads_vpn_alert_channel"
 
         fun cancelWireGuardConfigIssue(context: Context) {
@@ -39,10 +39,13 @@ class VpnNotificationManager(private val context: Context) {
             val normalChannel = NotificationChannel(
                 CHANNEL_ID,
                 context.getString(R.string.notification_channel_name),
-                NotificationManager.IMPORTANCE_LOW
+                NotificationManager.IMPORTANCE_MIN
             ).apply {
                 description = context.getString(R.string.notification_channel_description)
                 setShowBadge(false)
+                setSound(null, null)
+                enableVibration(false)
+                enableLights(false)
             }
 
             val alertChannel = NotificationChannel(
