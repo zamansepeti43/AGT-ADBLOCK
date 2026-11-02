@@ -171,12 +171,10 @@ android {
         includeInBundle = false
     }
 
+    // Produce a single universal APK instead of one APK per CPU architecture.
     splits {
         abi {
-            isEnable = !isBuildingBundle
-            reset()
-            include("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
-            isUniversalApk = true
+            isEnable = false
         }
     }
 
