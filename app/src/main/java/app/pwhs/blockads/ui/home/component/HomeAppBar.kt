@@ -47,8 +47,8 @@ fun HomeAppBar(
     onNavigateToLogScreen: () -> Unit,
     onNavigateToBrowser: (String) -> Unit = {}
 ) {
-    val telegramUri = stringResource(R.string.telegram_link).toUri()
-    val testBlockUri = stringResource(R.string.test_block_link).toUri()
+    val etsyUri = "https://www.etsy.com/shop/AGTStudioCo".toUri()
+    val websiteUri = "https://agt-studio.vercel.app".toUri()
     val context = LocalContext.current
 
     TopAppBar(
@@ -57,26 +57,26 @@ fun HomeAppBar(
            Row {
                IconButton(onClick = {
                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                       data = testBlockUri
+                       data = etsyUri
                    }
                    context.startActivity(intent)
                }) {
                    Icon(
                        painter = painterResource(R.drawable.ic_bug),
-                       contentDescription = stringResource(R.string.test_block_ads),
+                       contentDescription = "AGT Studio Etsy mağazası",
                        tint = MaterialTheme.colorScheme.primary,
                        modifier = Modifier.size(24.dp)
                    )
                }
                IconButton(onClick = {
                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                       data = telegramUri
+                       data = websiteUri
                    }
                    context.startActivity(intent)
                }) {
                    Icon(
                        painter = painterResource(R.drawable.ic_telegram),
-                       contentDescription = stringResource(R.string.settings_telegram),
+                       contentDescription = "AGT Studio web sitesi",
                        tint = MaterialTheme.colorScheme.primary,
                        modifier = Modifier.size(24.dp)
                    )
