@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build AGT AdBlock APK
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout AGT AdBlock
+      - name: Checkout AGT AdBlock source
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -24,12 +24,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Get upstream Android source
-        run: |
-          git clone --depth 1 https://github.com/pass-with-high-score/blockads-android.git upstream
-
-      - name: Build debug APK
-        working-directory: upstream
+      - name: Build Android debug APK
         run: |
           chmod +x gradlew
           ./gradlew --no-daemon assembleFdroidDebug
@@ -37,7 +32,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: AGT-AdBlock-upstream-debug-apk
-          path: upstream/app/build/outputs/apk/fdroid/debug/*.apk
+          name: AGT-AdBlock-debug-apk
+          path: app/build/outputs/apk/fdroid/debug/*.apk
           if-no-files-found: error
           retention-days: 14
