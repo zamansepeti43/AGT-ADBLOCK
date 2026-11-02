@@ -30,7 +30,7 @@ jobs:
       - name: Install Android SDK platform and NDK
         run: |
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-37" "ndk;26.1.10909125"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --channel=3 --install "platforms;android-37" "ndk;26.1.10909125"
 
       - name: Install gomobile tools
         run: |
