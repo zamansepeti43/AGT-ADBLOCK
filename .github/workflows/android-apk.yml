@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -45,10 +45,26 @@ jobs:
           chmod +x gradlew
           ./gradlew --no-daemon -Ptunnel.source=local assembleFdroidDebug
 
-      - name: Upload APK
+      - name: Prepare one directly downloadable APK
+        run: |
+          mkdir -p release
+          APK="$(find app/build/outputs/apk/fdroid/debug -maxdepth 1 -name '*.apk' -type f | head -n 1)"
+          test -n "$APK"
+          cp "$APK" release/AGT-Blocker.apk
+          ls -lh release/AGT-Blocker.apk
+
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: AGT-Blocker-debug-apk
-          path: app/build/outputs/apk/fdroid/debug/*.apk
+          path: release/AGT-Blocker.apk
           if-no-files-found: error
           retention-days: 14
+
+      - name: Publish direct APK download
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: agt-blocker-build-${{ github.run_number }}
+          name: AGT Blocker build ${{ github.run_number }}
+          files: release/AGT-Blocker.apk
+          generate_release_notes: false
