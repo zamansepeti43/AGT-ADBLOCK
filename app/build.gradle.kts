@@ -55,7 +55,7 @@ val isBuildingBundle = gradle.startParameter.taskNames.any { it.contains("bundle
 
 android {
     namespace = "app.pwhs.blockads"
-    compileSdk = 36
+    compileSdk = 37
     ndkVersion = "26.1.10909125"
 
     defaultConfig {
@@ -330,6 +330,6 @@ sentry {
     tracingInstrumentation { enabled = false }
     autoInstallation { enabled = false }
 
-    // Disable telemetry and dependency reporting that cause non-deterministic builds
+    // Disable telemetry and dependency reporting to prevent non-deterministic builds
     includeDependenciesReport = false
 }
