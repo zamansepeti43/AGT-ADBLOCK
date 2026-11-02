@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">BlockAds</string>
-    <string name="app_tagline">Ad-Free Browsing</string>
+    <string name="app_name" translatable="false">AGT Blocker</string>
+    <string name="app_tagline">Reklamsız Koruma</string>
     <string name="nav_home">Home</string>
     <string name="nav_logs">Logs</string>
     <string name="nav_filter">Filter</string>
