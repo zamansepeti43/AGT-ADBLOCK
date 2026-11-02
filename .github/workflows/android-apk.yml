@@ -27,16 +27,15 @@ jobs:
           go-version-file: tunnel/go.mod
           cache-dependency-path: tunnel/go.sum
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Install Android SDK platform and NDK
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-37" "ndk;26.1.10909125"
 
-      - name: Install Android NDK
-        run: sdkmanager "ndk;26.1.10909125"
-
-      - name: Install gomobile
+      - name: Install gomobile tools
         run: |
           go install github.com/sagernet/gomobile/cmd/gomobile@v0.1.12
-          go install golang.org/x/mobile/cmd/gobind@latest
+          go install github.com/sagernet/gomobile/cmd/gobind@v0.1.12
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
