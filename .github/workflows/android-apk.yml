@@ -1,4 +1,4 @@
-name: Build AGT AdBlock APK
+name: Build AGT Blocker APK
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout AGT AdBlock source
+      - name: Checkout AGT Blocker source
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -21,18 +21,35 @@ jobs:
           distribution: temurin
           java-version: '21'
 
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: tunnel/go.mod
+          cache-dependency-path: tunnel/go.sum
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android NDK
+        run: sdkmanager "ndk;26.1.10909125"
+
+      - name: Install gomobile
+        run: |
+          go install github.com/sagernet/gomobile/cmd/gomobile@v0.1.12
+          go install golang.org/x/mobile/cmd/gobind@latest
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build Android debug APK
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon assembleFdroidDebug
+          ./gradlew --no-daemon -Ptunnel.source=local assembleFdroidDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: AGT-AdBlock-debug-apk
+          name: AGT-Blocker-debug-apk
           path: app/build/outputs/apk/fdroid/debug/*.apk
           if-no-files-found: error
           retention-days: 14
