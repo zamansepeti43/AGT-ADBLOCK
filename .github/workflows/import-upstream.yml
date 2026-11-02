@@ -1,0 +1,38 @@
+name: Import upstream Android source
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout AGT AdBlock
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone selected upstream
+        run: |
+          git clone --depth 1 https://github.com/pass-with-high-score/blockads-android.git /tmp/blockads-upstream
+
+      - name: Copy complete Android source into this repository
+        run: |
+          rsync -a --delete             --exclude='.git/'             --exclude='.github/'             --exclude='README.md'             --exclude='LICENSE'             --exclude='app/build/'             /tmp/blockads-upstream/ ./
+          cp /tmp/blockads-upstream/README.md UPSTREAM_README.md
+          cp /tmp/blockads-upstream/LICENSE LICENSE
+
+      - name: Commit imported source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No source changes to import."
+            exit 0
+          fi
+          git commit -m "Import BlockAds Android source as AGT AdBlock base"
+          git push
