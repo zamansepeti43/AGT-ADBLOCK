@@ -9,8 +9,9 @@ Android için sistem genelinde reklam ve takip alan adı filtreleme uygulaması.
 - GitHub Actions ile otomatik APK derleme
 
 ## Lisans ve kaynak
-Bu proje, GPL-3.0 lisanslı BlockAds Android projesinden türetilerek geliştirilecektir. Kaynak proje ve lisans bildirimleri korunacak, değişiklikler açıkça belirtilecek ve dağıtılan türev sürümün karşılık gelen kaynak kodu GPL-3.0 koşullarına uygun paylaşılacaktır.
+Bu proje, GPL-3.0 lisanslı BlockAds Android projesi temel alınarak geliştirilmektedir. Kaynak proje ve lisans bildirimleri korunur; dağıtılan türev sürümün karşılık gelen kaynak kodu GPL-3.0 koşullarına uygun paylaşılır.
 
 Upstream: https://github.com/pass-with-high-score/blockads-android
 
-> Durum: Proje kurulumu. Android kaynak kodu ve CI derleme iş akışı sonraki aşamada eklenecek.
+## Build
+Android kaynak kodu upstream deposundan alınır. İlk doğrulama aşamasında orijinal uygulama değiştirilmeden derlenir.
